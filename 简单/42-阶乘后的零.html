@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            阶乘后的零
+            给定一个整数 n，返回 n! 结果尾数中零的数量。
+
+            示例 1:
+
+            输入: 3
+            输出: 0
+            解释: 3! = 6, 尾数中没有零。
+            示例 2:
+
+            输入: 5
+            输出: 1
+            解释: 5! = 120, 尾数中有 1 个零.
+            2,5
+            4,5
+            5,6
+            5,8
+            10
+        */
+        /**
+        * @param {number} n
+        * @return {number}
+        */
+        // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+        // 只需要判断每个累乘的数有多少个 5 的因子
+        var trailingZeroes = function (n) {
+            let count = 0;
+            while (n > 0) {
+                count += parseInt(n / 5);
+                n = parseInt(n / 5);
+            }
+            return count;
+        };
+        console.log(trailingZeroes(20))
+    </script>
+</body>
+
+</html>

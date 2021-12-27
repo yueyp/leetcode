@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+            验证回文串
+            给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+            说明：本题中，我们将空字符串定义为有效的回文串。
+        */
+      /**
+       * @param {string} s
+       * @return {boolean}
+       */
+      //    方法一
+    //   var isPalindrome = function(s) {
+    //     let arr = [];
+    //     s = s.toLowerCase();
+    //     for (let i = 0; i < s.length; i++) {
+    //       if (/[a-zA-Z0-9]/.test(s[i])) {
+    //         arr.push(s[i]);
+    //       }
+    //     }
+    //     return arr.join("") == arr.reverse().join("");
+    //   };
+    //   //    方法二
+    //   var isPalindrome = function(s) {
+    //     s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+    //     let len = s.length;
+    //     for (let i = 0; i < Math.floor(len / 2); i++) {
+    //       if (s[i] !== s[len - i - 1]) {
+    //         return false;
+    //       }
+    //     }
+    //     return true;
+    //   };
+      //   方法三
+      var isPalindrome = function(s) {
+        let i = 0;
+        let j = s.length - 1;
+        let req = /[a-zA-Z0-9]/;
+        s = s.toLowerCase()
+        while (i <= j) {
+          if (req.test(s[i]) && req.test(s[j])) {   
+            if (s[i] !== s[j]) {
+              return false;
+            } else {
+              i++;
+              j--;
+            }
+          } else if (req.test(s[i])) {
+            j--;
+          } else if (req.test(s[j])) {
+            i++;
+          } else {
+            i++;
+            j--;
+          }
+        }
+        return true;
+      };
+      console.log(isPalindrome("race a car"));
+    </script>
+  </body>
+</html>

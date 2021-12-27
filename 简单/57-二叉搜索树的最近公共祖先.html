@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        二叉搜索树的最近公共祖先
+        给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+        百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，
+        最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+        示例 1:
+
+        输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+        输出: 6 
+        解释: 节点 2 和节点 8 的最近公共祖先是 6。
+
+        二叉树性质
+        节点 NN 左子树上的所有节点的值都小于等于节点 NN 的值
+        节点 NN 右子树上的所有节点的值都大于等于节点 NN 的值
+        左子树和右子树也都是 BST
+        */
+        /* 
+        方法一，若要查找的值都小于当前节点，则递归查找该节点的左子树，
+        若要查找的值都大于当前节点，则递归查找该节点的右子树，
+        以上都不成立，说明该节点及为最近的祖先节点
+        */
+        const lowestCommonAncestor = (root,p,q) => {
+            if(p.val < root.val && q.val < root.val){
+                return lowestCommonAncestor(root.left,p,q)
+            }else if(p.val > root.val && q.val > root.val){
+                return lowestCommonAncestor(root.right,p,q)
+            }else{
+                return root
+            }
+        }
+        // 方法二，迭代
+        const lowestCommonAncestor = (root,p,q) => {
+            while(root){
+                if(p.val < root.val && q.val < root.val){
+                 root = root.left
+                }else if(p.val > root.val && q.val > root.val){
+                    root = root.right
+                }else{
+                    break
+                }
+            }
+            return root
+        }
+    </script>
+</body>
+</html>

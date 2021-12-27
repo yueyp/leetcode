@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        存在重复元素 II
+        给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
+        示例 1:
+        输入: nums = [1,2,3,1], k = 3
+        输出: true
+        */
+        /**
+        * @param {number[]} nums
+        * @param {number} k
+        * @return {boolean}
+        */
+        // 方法一, 循环数组，将元素放进一个对象中，判断之前是否出现过,若出现过，比较两者的值相差是否小于等于k，小于则返回true；
+        // 大于则将最新的索引值覆盖之前的索引值
+        var containsNearbyDuplicate = function (nums, k) {
+            let obj = {}
+            for(let i = 0; i < nums.length; i++){da
+                if(obj[nums[i]] == undefined){
+                    obj[nums[i]] = i
+                }else{
+                    if(i - obj[nums[i]] <= k){
+                        return true
+                    }else{
+                        obj[nums[i]] = i
+                    }
+                }
+            }
+            return false
+        };
+        // 方法二，循环数组，内层循环k，判断元素的后k个元素，是否有与其相等的值，若有则返回true
+        var containsNearbyDuplicate = function (nums, k) {
+            for(let i = 0; i < nums.length; i++){
+                for(let j = 1; j <= k; j++){
+                    if(nums[i] === nums[i+j]){
+                        return true
+                    }
+                }
+            }
+            return false
+        };
+        // 方法三
+        /*
+        维护一个哈希表，里面始终最多包含 k 个元素，当出现重复值时则说明在 k 距离内存在重复元素
+        每次遍历一个元素则将其加入哈希表中，如果哈希表的大小大于 k，则移除最前面的数字
+        */ 
+        var containsNearbyDuplicate = function (nums, k) {
+            const set = new Set()
+            for(let i = 0; i < nums.length; i++){
+                if(set.has(nums[i])){
+                    return true
+                }
+                set.add(nums[i])
+                if(set.size > k){
+                    set.delete(nums[i-k])
+                }
+            }
+            return false
+        };
+        containsNearbyDuplicate([1,0,1,1],1)
+
+    </script>
+</body>
+
+</html>

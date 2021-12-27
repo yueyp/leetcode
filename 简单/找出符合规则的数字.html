@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+            给出一个元素无序的数组，求出一个数，使得其左边的数都小于它，右边的数都大于等于它。
+            要求时间复杂度n
+        */
+        let arr = [1,2,3,7,5,3,7,9,11,33,12,14]
+
+        function findNum(arr){
+            let obj = {}
+            arr.map((v,i) => {
+                obj[v] = i
+            })
+
+            arr.sort((a,b) => a - b)
+
+            for(let i = 0 ; i < arr.length; i++){
+                if(obj[arr[i]] === i)
+            }
+
+
+        }
+    </script>
+</body>
+</html>

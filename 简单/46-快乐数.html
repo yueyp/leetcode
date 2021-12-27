@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* 快乐数
+            编写一个算法来判断一个数 n 是不是快乐数。
+
+        「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。
+
+        如果 n 是快乐数就返回 True ；不是，则返回 False 。
+
+        */
+        /**
+        * @param {number} n
+        * @return {boolean}
+        */
+        // 如果不是快乐数最终肯定进入循环
+        var isHappy = function (n) {
+            let obj = {}
+
+            function getNext(data) {
+                let sum = 0
+                data = data + ''
+                for (let i = 0; i < data.length; i++) {
+                    sum += data[i] * data[i]
+                }
+                return getResult(sum)
+            };
+            function getResult(data) {
+                if (data === 1) {
+                    return true
+                } else if (!obj[data]) {
+                    obj[data] = true
+                    return getNext(data)
+                } else {
+                    return false
+                }
+            };
+             console.log(getResult(n),"result")
+        };
+        isHappy(19)
+    </script>
+</body>
+
+</html>

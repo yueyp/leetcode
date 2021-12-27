@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        给定两个字符串 s 和 t，它们只包含小写字母。
+
+        字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。
+
+        请找出在 t 中被添加的字母。
+        */
+        /**
+        * @param {string} s
+        * @param {string} t
+        * @return {character}
+        */
+        // 方法一，遍历t中的每个字符，判断是否在s中出现，若出现则将s中该字符删除，没有出现过则返回该字符
+        // var findTheDifference = function (s, t) {
+        //     for(let i = 0; i < t.length; i++){
+        //         if(s.indexOf(t[i]) === -1){
+        //             return t[i]
+        //         }else{
+        //             s = s.replace(t[i],"")
+        //         }
+        //     }
+        //     return ""
+        // };
+        // 方法二,将两个字符串先进行排序，排序后一一对比，不相同的则返回，比对到最后若没有不相同的，则返回t的最后一个字符
+        var findTheDifference = function(s,t){
+           s = s.split("").sort().join("")
+           t = t.split("").sort().join("")
+
+           for(let i = 0; i < s.length; i++){
+               if(s[i] != t[i]){
+                   return t[i]
+               }
+           }
+           return t[t.length - 1]
+        }
+        // 方法三
+        var findTheDifference = function(s,t){
+            const map = new Map()
+            for(let i = 0; i < s.length; i++){
+                const val = map.get(s[i])
+                map.set(s[i],val === undefined ? 1 : val + 1)
+            }
+            for(let i = 0; i < t.length; i++){
+                const val = map.get(t[i])
+                if(val === 0 || val === undefined){
+                    return t[i]
+                }else{
+                    map.set(t[i],val - 1)
+                }
+            }
+        }
+        console.log(findTheDifference('abcdetya','abcdeadyt'))
+    </script>
+</body>
+</html>

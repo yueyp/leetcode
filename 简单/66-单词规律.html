@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
+
+        这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串 str 中的每个非空单词之间存在着双向连接的对应规律。
+
+        示例1:
+
+        输入: pattern = "abba", str = "dog cat cat dog"
+        输出: true
+        示例 2:
+
+        输入:pattern = "abba", str = "dog cat cat fish"
+        输出: false
+        */
+        /**
+         * @param {string} pattern
+         * @param {string} s
+         * @return {boolean}
+         */
+        // 方法一，
+        var wordPattern = function (pattern, s) {
+            pattern = pattern.split('')
+            s = s.split(" ")
+            let len = pattern.length
+            if (len !== s.length) return false
+            for (let i = 0; i < len; i++) {
+                for (let j = i + 1; j < len; j++) {
+                    if (pattern[i] === pattern[j]) {
+                        if (s[i] !== s[j]) {
+                            return false
+                        }
+                    } else {
+                        if (s[i] === s[j]) {
+                            return false
+                        }
+                    }
+                }
+            }
+            return true
+        };
+        // 方法二
+        var wordPattern = function (pattern, str) {
+            var arr = str.split(' ');
+            if (pattern.length != arr.length) return false;
+            for (var i = 0; i < pattern.length; i++) {
+                if (pattern.indexOf(pattern[i]) != arr.indexOf(arr[i])) {
+                    return false;
+                }
+            }
+            return true;
+        };
+        // 方法三
+        var wordPattern = function (pattern, str) {
+            var arr = str.split(' ');
+            var map = new Map();
+            var maps = new Map();
+            if (pattern.length != arr.length) return false;
+            for (var i = 0; i < pattern.length; i++) {
+
+                if (maps.has(arr[i]) == false) {
+                    maps.set(arr[i], pattern[i]);
+                } else {
+                    if (maps.get(arr[i]) != pattern[i]) {
+                        return false
+                    }
+                }
+                if (map.has(pattern[i]) == false) {
+                    map.set(pattern[i], arr[i]);
+                } else {
+                    if (map.get(pattern[i]) != arr[i]) {
+                        return false
+                    }
+                }
+
+            }
+            return true;
+        };
+        console.log(wordPattern("abba", "dog cat cat fish"))
+    </script>
+</body>
+</html>

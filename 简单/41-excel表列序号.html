@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        Excel表列序号
+        给定一个Excel表格中的列名称，返回其相应的列序号。
+        例如，
+
+        A -> 1  
+        B -> 2
+        C -> 3
+        ...
+        Z -> 26
+        AA -> 27 26+1
+        AB -> 28 26+2
+        BA -> 53 26*2 + 1
+        BB -> 54 26*2 + 2
+        AAA -> 701 26*26 + 26 + 1
+        BBA -> 26*26*2 + 26*2 + 1
+        ...
+        */
+        /**
+        * @param {string} s
+        * @return {number}
+        */
+        // 方法一
+        var titleToNumber = function (s) {
+            let num = 0
+            let len = s.length
+            for(let i = len - 1; i >= 0; i--){
+                num += Math.pow(26,len - i - 1) * (s.charCodeAt(i) - 64)
+            }
+            return num
+        };
+        // 方法二
+        var titleToNumber = function(s) {
+            let ans = 0
+            let num = 0
+            for(let i = 0; i < s.length; i++){
+                num = s.charCodeAt(i) - 64
+                ans = ans * 26 + num
+            }
+            return ans
+        }
+        console.log(titleToNumber('ZY'))
+    </script>
+</body>
+
+</html>

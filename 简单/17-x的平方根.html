@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+            x 的平方根
+            实现 int sqrt(int x) 函数。
+
+            计算并返回 x 的平方根，其中 x 是非负整数。
+
+            由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+        */
+      /**
+       * @param {number} x
+       * @return {number}
+       */
+      //    方法一
+      var mySqrt = function(x) {
+        if (x === 0) {
+          return 0;
+        } else if (x < 4) {
+          return 1;
+        } else {
+          for (let i = 2; i <= Math.floor(x / 2); i++) {
+            if ((i * i < x && (i + 1) * (i + 1) > x) || i * i === x) return i;
+          }
+        }
+      };
+      //   方法二
+      var mySqrt = function(x) {
+        //   Math.sqrt(x)
+        return Math.floor(Math.pow(x, 0.5));
+      };
+      //   方法三 牛顿法
+      var mySqrt = function(x) {
+        if (x === 0) return 0;
+        var re = 1;
+        while (!(re * re <= x && (re + 1) * (re + 1) > x)) {
+          re = parseInt(re - (re * re - x) / (2 * re));
+        }
+        return re;
+      };
+      //   方法四 二分法
+      var mySqrt = function(x) {
+        if (x < 2) return x;
+        let left = 2;
+        let right = Math.floor(x / 2);
+        while (left <= right) {
+          let middle = left + Math.floor((right - left) >> 1);
+          if (middle * middle === x) {
+            return middle;
+          } else if (middle * middle > x) {
+            right = middle - 1;
+          } else {
+            left = middle + 1;
+          }
+        }
+        return right;
+      };
+      console.log(mySqrt(9));
+    </script>
+  </body>
+</html>

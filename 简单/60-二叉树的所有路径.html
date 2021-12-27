@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        二叉树的所有路径
+        给定一个二叉树，返回所有从根节点到叶子节点的路径。
+        说明: 叶子节点是指没有子节点的节点。
+        */
+        /**
+        * Definition for a binary tree node.
+        * function TreeNode(val) {
+        *     this.val = val;
+        *     this.left = this.right = null;
+        * }
+        */
+        /**
+        * @param {TreeNode} root
+        * @return {string[]}
+        */
+        var binaryTreePaths = function (root) {
+            if (!root) return []
+            if (root.left === null && root.right === null) return [root.val.toString()]
+            let left = binaryTreePaths(root.left)
+            let right = binaryTreePaths(root.right)
+            return left.concat(right).map(item => root.val + '->' + item)
+        };
+    </script>
+</body>
+
+</html>

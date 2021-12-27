@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        同构字符串
+        给定两个字符串 s 和 t，判断它们是否是同构的。
+
+        如果 s 中的字符可以被替换得到 t ，那么这两个字符串是同构的。
+
+        所有出现的字符都必须用另一个字符替换，同时保留字符的顺序。两个字符不能映射到同一个字符上，但字符可以映射自己本身。
+
+        */ 
+        /**
+        * @param {string} s
+        * @param {string} t
+        * @return {boolean}
+        */
+        // 法一
+        // 判断对象中是否出现过，如果出现过，两次值不相等则不是同构，没有出现过就放进对象里
+        var isIsomorphic = function(s, t) {
+            return isIsomorphicHelper(s,t) && isIsomorphicHelper(t,s)
+        };
+        function isIsomorphicHelper(s,t){
+            let len = s.length;
+            let obj = {}
+            for(let i = 0; i < s.length; i++){
+                if(obj[s[i]]){
+                    if(obj[s[i]] !== t[i]){
+                        return false
+                    }
+                }else{
+                    obj[s[i]] = t[i]
+                }
+            }
+            return true
+        }
+        // 法二
+        // 判断对象里的映射值是否相等，如果不相等，则说明不是同构,如果没有匹配过则没有映射，若匹配过则有映射
+        var isIsomorphic = function(s,t){
+            let len = s.length
+            let obj1 = {}
+            let obj2 = {}
+            for(let i = 0; i < len; i++){
+                let c1 = s[i]
+                let c2 = t[i]
+                if(obj1[c1] != obj2[c2]){
+                    return false
+                }else{
+                    if(!obj1[c1]){
+                        obj1[c1] = i + 1
+                        obj2[c2] = i + 1
+                    }
+                }
+            }
+            return true
+        }
+        isIsomorphic('paper','title')
+    </script>
+</body>
+</html>

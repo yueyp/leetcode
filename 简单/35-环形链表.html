@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        环形链表
+        给定一个链表，判断链表中是否有环。
+
+        为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+        */
+        /**
+        * Definition for singly-linked list.
+        * function ListNode(val) {
+        *     this.val = val;
+        *     this.next = null;
+        * }
+        */
+
+        /**
+         * @param {ListNode} head
+         * @return {boolean}
+         */
+        // 方法一
+        var hasCycle = function (head) {
+            if (!head || !head.next) return false;
+            let fast = head.next;
+            let slow = head;
+            while (fast != slow) {
+                if (!fast || !fast.next) {
+                    return false;
+                }
+                fast = fast.next.next;
+                slow = slow.next;
+            }
+            return true;
+        }
+        // 方法二
+        var hasCycle = function (head) {
+            if (!head) return false;
+            const map = new Map()
+            let node = head
+            map.set(node, true)
+            while (node.next) {
+                if (map.get(node.next)) {
+                    return true
+                }
+                map.set(node.next, true)
+                node = node.next
+            }
+            return false
+        }
+        // 方法三
+        var hasCycle = function (head) {
+            let res = []
+            while (head != null) {
+                if (res.includes(head)) {
+                    return true
+                } else {
+                    res.push(head)
+                }
+                head = head.next
+            }
+            return false
+        }
+        // 方法四
+        var hasCycle = function (head) {
+            while (head && head.next) {
+                if (head.flag) {
+                    return true
+                } else {
+                    head.flag = 1
+                    head = head.next
+                }
+            }
+            return false
+        }
+        // 方法五
+        // 利用JSON.stringify()不能字符串化含有循环引用的结构。
+        var hasCycle = function (head) {
+            try {
+                JSON.stringify(head);
+                return false;
+            }
+            catch (err) {
+                return true;
+            }
+        };
+    </script>
+</body>
+
+</html>

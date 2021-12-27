@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            丑数
+            编写一个程序判断给定的数是否为丑数。
+
+            丑数就是只包含质因数 2, 3, 5 的正整数。
+
+            示例 1:
+
+            输入: 6
+            输出: true
+            解释: 6 = 2 × 3
+        */
+        /**
+        * @param {number} num
+        * @return {boolean}
+        */
+        // 方法一，根据题意，要是丑数得需要不断能被2整除，或者能不断被3整除，或者能不断被5整除，或者能不断被2、3、5任意得两个或者三个数不断整除
+        var isUgly = function (num) {
+            if (num <= 0) return false
+
+            while (num % 2 === 0) {
+                num = num / 2
+            }
+            while (num % 3 === 0) {
+                num = num / 3
+            }
+            while (num % 5 === 0) {
+                num = num / 5
+            }
+            return num === 1
+        };
+        // 方法二
+        var isUgly = function (num) {
+            if (num == 0) {
+                return false;
+            }
+            while (num != 1) {
+                if (num % 2 == 0) {
+                    num /= 2;
+                    continue;
+                }
+                if (num % 3 == 0) {
+                    num /= 3;
+                    continue;
+                }
+                if (num % 5 == 0) {
+                    num /= 5;
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        };
+        console.log(isUgly(14))
+    </script>
+</body>
+
+</html>

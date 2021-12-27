@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+    * 5. 最长回文子串
+    * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+    */
+    var longestPalindrome = function (s) {
+      let arr = s.split("")
+      let maxStr = ''
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = arr.length - 1; j >= i; j--) {
+          if (arr[i] === arr[j]) {
+            let obj = arr.slice(i, j + 1)
+            if (obj.join("") === obj.reverse().join("")) {
+              if (obj.length > maxStr.length) {
+                maxStr = obj.join("")
+              }
+              break
+            }
+          }
+        }
+      }
+      return maxStr
+    };
+
+    console.log(longestPalindrome("ac"))
+  </script>
+</body>
+
+</html>

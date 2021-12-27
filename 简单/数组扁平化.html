@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [1, 2, [3, 4, [5]]]
+
+        // 方法一
+        arr.toString().split(',')
+
+        // 方法二
+        function fn(data) {
+            let res = []
+            for (let i = 0; i < data.length; i++) {
+                if (Array.isArray(data[i])) {
+                    res.push(...fn(data[i]))
+                } else {
+                    res.push(data[i])
+                }
+            }
+            return res
+        }
+        console.log(fn(arr))
+
+        // 方法三
+        arr.flat(Infinity)
+
+        // 
+        ary = str.replace(/(\[\]))/g, '').split(',');
+
+        // 
+        str = str.replace(/(\[\]))/g, '');
+        str = '[' + str + ']';
+        ary = JSON.parse(str);
+
+        // 
+        while (ary.some(Array.isArray)) {
+            ary = [].concat(...ary);
+        }
+
+        // 
+        function flat3(arr) {
+            // 本质和 flat1 一样的，都是递归
+            return arr.reduce((pre, next) => {
+                return pre.concat(Array.isArray(next) ? flat3(next) : next)
+            }, [])
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        给定一个二进制数组， 计算其中最大连续1的个数。
+
+        示例 1:
+
+        输入: [1,1,0,1,1,1]
+        输出: 3
+        解释: 开头的两位和最后的三位都是连续1，所以最大连续1的个数是 3.
+        */
+        /**
+         * @param {number[]} nums
+         * @return {number}
+         */
+        // 法一，循环二进制数组，计算1的个数，若遇到0，则将之前累计的个数存进数组，个数清零，重新开始计算，循环完后循环数组，找出里面最大的数
+        var findMaxConsecutiveOnes = function (nums) {
+            let num = 0
+            let arr = []
+            for (let i = 0; i < nums.length; i++) {
+                if (nums[i] === 1) {
+                    num += 1
+                } else {
+                    arr.push(num)
+                    num = 0
+                }
+            }
+
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] > num) {
+                    num = arr[i]
+                }
+            }
+
+            return num
+        };
+        // 法一，循环二进制数组，计算1的个数，若遇到0，则与之前的连续1的值进行比较，取两者中的大值进行保存，个数清零，
+        //  循环完后返回大值和最后一次计算的1的个数进行比较，取大值
+        var findMaxConsecutiveOnes = function (nums) {
+            let num = 0
+            let max = 0
+            for (let i = 0; i < nums.length; i++) {
+                if (nums[i] === 1) {
+                    num += 1
+                } else {
+                    max = num > max ? num : max
+                    num = 0
+                }
+            }
+
+            return max > num ? max : num
+        };
+        // 法三，先将数组转为字符串，在以0为分隔符转为数组，数组中最长项的长度即为所求值
+        var findMaxConsecutiveOnes = function (nums) {
+            nums = nums.join("").split("0")
+            let max = 0
+            for (let i = 0; i < nums.length; i++) {
+                if (nums[i].length > max) {
+                    max = nums[i].length
+                }
+            }
+            return max
+        }
+        var findMaxConsecutiveOnes = function (nums) {
+            return Math.max.apply(null, nums.join('').split('0').map((el) => el.length))
+        };
+        console.log(findMaxConsecutiveOnes([1, 1, 1, 1, 0, 1, 1, 1]))
+    </script>
+</body>
+</html>

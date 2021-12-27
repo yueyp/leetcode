@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //     2.比较两个数组，然后返回一个新数组，该数组的元素为两个给定数组中所有独有的数组元素。换言之，返回两个数组的差异。
+        //     如：[1, 2, 3, 5], [1, 2, 3, 4, 5] 应该返回 [4]。    
+        // 　　[1, "calf", 3, "piglet"], [1, "calf", 3, 4] 应该返回 ["piglet", 4]。
+
+        var arr1 = [1, 2, 3, 5]
+        var arr2 = [1, 3, 6, 7, 8]
+
+        // 法一      
+        // var arr = [];
+        // function findDifference(arr1, arr2) {
+        //     for (var i = 0; i < arr1.length; i++) {
+        //         var flag = true;
+        //         for (var j = 0; j < arr2.length; j++) {
+        //             if (arr1[i] == arr2[j]) {
+        //                 flag = false
+        //             }
+        //         }
+        //         if (flag) {
+        //             arr.push(arr1[i])
+        //         }
+        //     }
+        // }
+
+        // findDifference(arr1, arr2)
+        // findDifference(arr2, arr1)
+        // console.log(arr)
+
+        // 法二
+        // function findDifference(arr1, arr2) {
+        //     var differenceArr = [];
+        //     var allArr = arr1.concat(arr2)
+
+        //     for (var i = 0; i < allArr.length; i++) {
+        //         var index = differenceArr.indexOf(allArr[i])
+        //         if (index == -1) {
+        //             differenceArr.push(allArr[i])
+        //         } else {
+        //             differenceArr.splice(index, 1)
+        //         }
+        //     }
+        //     return differenceArr
+        // }
+        // console.log(findDifference(arr1, arr2))
+
+        // 法三
+        // function diff(arr1, arr2) {
+        //     var newArr = [];
+        //     var arr1Filtered = arr1.filter(function (num) {
+        //         for (var i = 0; i < arr2.length; i++) {
+        //             if (num == arr2[i]) {
+        //                 return false
+        //             }
+        //         }
+        //         return true
+        //     })
+
+        //     var arr2Filtered = arr2.filter(function (num) {
+        //         for (var i = 0; i < arr1.length; i++) {
+        //             if (num == arr1[i]) {
+        //                 return false
+        //             }
+        //         }
+        //         return true
+        //     })
+        //     newArr = arr1Filtered.concat(arr2Filtered)
+        //     return newArr
+        // }
+
+        // 法四
+        // function diff(arr1,arr2){
+        //     return arr1.concat(arr2).filter((v,i,arr) => {
+        //         return arr.indexOf(v) === arr.lastIndexOf(v)
+        //     })
+        // }
+
+        // 法五
+        // function diff(arr1, arr2) {
+        //     let arr = []
+        //     for(let i = 0; i < arr1.length; i++){
+        //         if(arr2.indexOf(arr1[i]) == -1){
+        //             arr.push(arr1[i])
+        //         }
+        //     }
+        //     for(let i = 0; i < arr2.length; i++){
+        //         if(arr1.indexOf(arr2[i]) == -1){
+        //             arr.push(arr2[i])
+        //         }
+        //     }
+        // return arr
+        // }
+
+        // 法六
+        function diff(arr1, arr2) {
+            let concatArr = [...arr1, ...arr2]
+            let json = {}
+            let arr = []
+            for (let i = 0; i < concatArr.length; i++) {
+                if (json[concatArr[i]]) {
+                    json[concatArr[i]] = json[concatArr[i]] + 1
+                } else {
+                    json[concatArr[i]] = 1
+                }
+            }
+
+            for (const key in json) {
+                if (json[key] == 1) {
+                    arr.push(key)
+                }
+            }
+
+            return arr
+        }
+        console.log(diff(arr1, arr2))
+
+    </script>
+</body>
+
+</html>

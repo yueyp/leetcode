@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        相交链表
+        编写一个程序，找到两个单链表相交的起始节点。
+        */
+        /**
+        * Definition for singly-linked list.
+        * function ListNode(val) {
+        *     this.val = val;
+        *     this.next = null;
+        * }
+        */
+
+        /**
+         * @param {ListNode} headA
+         * @param {ListNode} headB
+         * @return {ListNode}
+         */
+        //  方法一
+        var getIntersectionNode = function (headA, headB) {
+            if (!headA || !headB) return null
+            let p1 = headA
+            let p2 = headB
+            let arr = []
+            while (p1) {
+                arr.push(p1)
+                p1 = p1.next
+            }
+            while (p2) {
+                if (arr.includes(p2)) {
+                    return p2
+                }
+                p2 = p2.next
+            }
+            return null
+        };
+        // 方法二
+        var getIntersectionNode = function (headA, headB) {
+            if (!headA || !headB) return null
+            let p1 = headA
+            while (p1) {
+                let p2 = headB
+                while (p2) {
+                    if (p2 === p1) return p1
+                    p2 = p2.next
+                }
+                p1 = p1.next
+            }
+            return null
+        }
+        // 方法三
+        /* 指针 pA 指向 A 链表，指针 pB 指向 B 链表，依次往后遍历
+        如果 pA 到了末尾，则 pA = headB 继续遍历
+        如果 pB 到了末尾，则 pB = headA 继续遍历
+        若有相交则连个指针则会相遇
+        */
+        var getIntersectionNode = function (headA, headB) {
+            if (!headA || !headB) return null
+            let pa = headA
+            let pb = headB
+            while (pa != pb) {
+                pa = pa === null ? headB : pa.next
+                pb = pb === null ? headA : pb.next
+            }
+            return pa
+        }
+    </script>
+</body>
+
+</html>

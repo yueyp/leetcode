@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 模仿竖式相乘，s1*s2，将s2的每一位和s1的乘积（低位补0）翻转后放入一个数组
+        function multi(str1,str2){
+            let sumArr = []
+            for(let i = 0; i < str1.length; i++){
+                let c = 0
+                let sum = "0".repeat(i)
+                for(let j = 0; j < str2.length;j++){
+                    let pro = str1[i]*str2[j]
+                    if(pro >= 10){
+                        sum = pro % 10 + c * 1 + sum
+                        c = parseInt(pro/10)
+                    }else{
+                        sum = pro % 10 + c * 1 + sum
+                        c = 0
+                    }
+                }
+                sumArr.push([...sum.split("").reverse()])
+            }
+            // 将数组中的每一个数进行相加，反向拼接即可得到答案
+            let c = 0
+            let sum = ""
+            let lastArr = sumArr[sumArr.length - 1]
+            for(let i = 0; i< lastArr.length;i++){
+                let sum1 = 0
+                for(let j = 0; j < sumArr.length;j++){
+                    sum1=+sum1 + (sumArr[j][i] || 0) * 1
+                }
+                if(sum1 >= 10){
+                        sum = sum1 % 10 + c * 1 + sum
+                        c = parseInt(sum1/10)
+                    }else{
+                        sum = sum1 % 10 + c * 1 + sum
+                        c = 0
+                    }
+            }
+            return sum
+        }
+        console.log(multi('11','222'))
+    </script>
+</body>
+</html>

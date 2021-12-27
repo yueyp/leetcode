@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            给定两个数组，编写一个函数来计算它们的交集。
+
+            示例 1：
+
+            输入：nums1 = [1,2,2,1], nums2 = [2,2]
+            输出：[2,2]
+        */
+        const intersect = (nums1, nums2) => {
+            const map = {}
+            const res = []
+            let len = nums1.length
+            for (let i = 0; i < len; i++) {
+                let el = nums1[i]
+                if (map[el]) {
+                    map[el]++
+                } else {
+                    map[el] = 1
+                }
+            }
+            len = nums2.length
+            for (let i = 0; i < len; i++) {
+                let el = nums2[i]
+                if (map[el]) {
+                    res.push(el)
+                    map[el]--
+                }
+            }
+            return el
+        }
+        const intersect = (nums1, nums2) => {
+            nums1.sort((a, b) => a - b)
+            nums2.sort((a, b) => a - b)
+            const res = []
+            let p1 = 0
+            let p2 = 0
+            while (p1 < nums1.length && p2 < nums2.length) {
+                if (nums1[p1] === nums2[p2]) {
+                    res.push(nums1[p1])
+                    p1++
+                    p2++
+                } else if (nums1[p1] < nums2[p2]) {
+                    p1++
+                } else {
+                    p2++
+                }
+            }
+            return res
+        }
+        var intersect = function (nums1, nums2) {
+            let res = [];
+            if (nums1.length < nums2.length) [nums1, nums2] = [nums2, nums1];
+            for (let i = 0; i < nums1.length; i++) {
+                let key = nums2.indexOf(nums1[i]);
+                if (key !== -1) res.push(nums2.splice(key, 1));
+            }
+            return res;
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function sum(...args){
+            let fn = function(...args1){
+                return sum.apply(null,args.concat(args1))
+            }
+            fn.toString = function(){
+                return args.reduce((a,b) => a + b)
+            }
+            return fn
+        }
+        // sum(1,2,3) 
+        console.log(sum(1)(2)(3).toString())
+    </script>
+</body>
+</html>

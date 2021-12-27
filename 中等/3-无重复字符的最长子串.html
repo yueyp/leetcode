@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+    * 3. 无重复字符的最长子串
+    * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+    */
+    // 方法一
+    // var lengthOfLongestSubstring = function (s) {
+    //   let arr = s.split("")
+    //   let arr1 = []
+    //   let max = 0
+    //   let num = 0
+    //   let j = 0
+    //   let len = arr.length
+    //   for (let i = 0; i < len; i++) {
+    //     let el = arr[i]
+    //     if (arr1.indexOf(el) < 0) {
+    //       arr1.push(el)
+    //       num++
+    //     } else {
+    //       arr1 = []
+    //       num = 0
+    //       j++
+    //       i = j - 1
+    //     }
+    //     if (num > max) {
+    //       max = num
+    //     }
+    //   }
+    //   return max
+    // };
+    // 方法二
+    // var lengthOfLongestSubstring = function (s) {
+    //   var res = 0,
+    //   i = 0;
+    //   var temp = [];
+    //   while (i < s.length) {
+    //     if (temp.indexOf(s[i]) === -1) {
+    //       temp.push(s[i]);
+    //     } else {
+    //       temp.shift();
+    //       continue;
+    //     }
+    //     console.log(temp,i)
+    //     res = Math.max(res, temp.length);
+    //     i++;
+    //   }
+    //   return res;
+    // };
+    // 方法三，先列出所有可能的子字符串，然后比较其中无重复字母的子字符串的最大长度
+    var lengthOfLongestSubstring = function (s) {
+      let len = s.length
+      let max = 0
+      for(let i = 0; i < len;i++){
+        for(let j = i+1; j <= len;j++){
+          if(allUnique(s,i,j))  max = Math.max(max,j-i)
+        }
+      }
+      function allUnique(s,start,end){
+        let set = new Set()
+        for(let k = start;k < end; k++){
+            if(set.has(s[k])){
+              return false
+            }
+            set.add(s[k])
+        }
+        return true
+      }
+      return max
+    }
+
+    console.log(lengthOfLongestSubstring(''))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        给定一个整数，写一个函数来判断它是否是 4 的幂次方。
+
+        示例 1:
+
+        输入: 27
+        输出: true
+        示例 2:
+
+        输入: 0
+        输出: false
+        */
+        /**
+        * @param {number} n
+        * @return {boolean}
+        */
+        var isPowerOfThree = function (n) {
+            if(n == 0) return False
+            while(n % 4 == 0){
+                n /= 4
+            }
+            return n == 1
+        };
+        // 方法二,
+        var isPowerOfThree = function (n) {
+            return /^10*$/.test(num.toString(4));
+        };
+         // 方法二,
+        var isPowerOfThree = function (n) {
+            return (num > 0) && (Math.log(num) / Math.log(2) % 2 == 0);
+        };
+        isPowerOfThree(27)
+    </script>
+</body>
+</html>

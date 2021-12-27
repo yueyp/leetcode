@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+        有效的字母异位词
+        给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+        输入: s = "anagram", t = "nagaram"
+        输出: true
+
+        输入: s = "rat", t = "car"
+        输出: false
+
+        你可以假设字符串只包含小写字母。
+        * @param {string} s
+        * @param {string} t
+        * @return {boolean}
+        */
+        /*
+        方法一，遍历第一个字符串，若元素存在第二个字符串中，则将第二个字符串中该元素剪切掉，
+        防止下次重复匹配。若元素不存在第二个字符串中，则说明不是有效的字母异位词。
+        遍历完成后，每个元素都能匹配到相应的字符，则说明是有效的字母异位词
+        */
+        // var isAnagram = function (s, t) {
+        //     if(s.length !== t.length) return false
+        //     for(let i = 0; i < s.length; i++){
+        //         let index = t.indexOf(s[i])
+        //         if(index < 0){
+        //             return false
+        //         }else{
+        //             t = t.slice(0,index) + t.slice(index+1)
+        //         } 
+        //     }
+        //     return true
+        // };
+        /*
+        方法二，将两个字符串中的元素进行排序，若为有效的字母异位词，则两者相等
+        */
+        // var isAnagram = function (s, t) {
+        //     if(s.length !== t.length) return false
+        //     return s.split("").sort().join("") === t.split("").sort().join("")
+        // };
+        /*
+        方法三，新建一对象，若第一个字符串出现了某字符，则将对象中该字符的个数加一，若第二个字符串中出现了某字符，
+        则将该对象中该字符的个数减一，若为有效的字母异位词，则两个字符串中每个字符出现的次数都是相等的，
+        则对象中每个字符的次数应为0，若有不为0的字符，则说明这两个字符串不为有效的字母异位词
+        */
+        var isAnagram = function (s, t) {
+            if(s.length !== t.length) return false
+            let map = {}
+            for(let i = 0; i < s.length; i++){
+                if(!map[s[i]]){
+                    map[s[i]] = 1
+                }else{
+                    map[s[i]]++
+                }
+                if(!map[t[i]]){
+                    map[t[i]] = -1
+                }else{
+                    map[t[i]]--
+                }
+            }
+            let keys = Object.keys(map)
+            for(let j = 0; j < keys.length;j++){
+                if(map[keys[j]]){
+                    return false
+                }
+            }
+            return true
+        };
+        console.log(isAnagram('anagram','nagaram'))
+    </script>
+</body>
+
+</html>
