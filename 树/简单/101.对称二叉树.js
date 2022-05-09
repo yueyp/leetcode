@@ -17,6 +17,8 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
+
+// 方法一： 递归，从上而下再回溯回来
 var isSymmetric = function (root) {
     // 递归判断左子树和右子树
     return isMirror(root, root)
@@ -33,3 +35,29 @@ var isMirror = function (t1, t2) {
     )
 }
 
+// 方法二： 迭代，从上而下
+var isSymmetric = function (root) {
+    return check(root,root)
+};
+var check = function(u,v){
+    let q = []
+    q.push(u)
+    q.push(v)
+
+    while(q.length){
+        u = q.shift()
+        v = q.shift()
+
+        // 都为null，则跳出循环，比较下一组
+        if(!u && !v) continue
+        if((!u || !v) || (u.val !== v.val)) return false
+
+        q.push(u.left)
+        q.push(v.right)
+
+        q.push(u.right)
+        q.push(v.left)
+    }
+
+    return true
+}
