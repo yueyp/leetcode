@@ -17,6 +17,7 @@
  * @param {number[]} nums
  * @return {TreeNode}
  */
+// 二叉搜索树的中序遍历是升序序列，左子树节点的值总是小于根节点的值，右子树节点的值总是大于根节点的值
 var sortedArrayToBST = function (nums) {
     // 将闭区间 [low, high] 中的元素转化成 BST，返回根节点
     let build = (low, high) => {
