@@ -37,10 +37,9 @@ var minDepth = function(root) {
   if(root.right !== null){
     min = Math.min(minDepth(root.right),min)
   }
-  // 深度为当前最小的值加上父节点即为1
+  // 深度为左右子树最小深度加上父节点
   return min + 1
 };
-
 
 var minDepth = function(root) {
   if (root == null) return 0;
