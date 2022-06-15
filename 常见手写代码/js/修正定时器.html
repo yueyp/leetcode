@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://blog.csdn.net/lhz_333/article/details/105678627
+        let startTime = new Date().getTime() // 1000
+        let count = 0
+        let interval = 1000
+
+        function loop() {
+            count++
+            // 代码执行所消耗的时间
+            let offset = new Date().getTime() - (startTime + count * interval);
+            let currentInterval = interval - offset
+            console.log('代码执行时间：' + offset, '；下次循环间隔' + currentInterval)
+            // 修正下一次定时器的执行时间
+            setTimeout(loop, currentInterval)
+        }
+
+        setTimeout(loop, interval)
+
+        // 实例，计数器修正
+        // 倒计时
+        // countTime: function () {
+        //     var that = this;
+        //     let countDownNum = that.getCountdownTime(); //获取倒计时初始值
+        //     if (countDownNum <= 0) return;
+        //     var string = that.getCountdownString(countDownNum);
+        //     that.setData({
+        //         countdownTime: string
+        //     });
+        //     var interval = 1000, start = new Date().getTime(), count = 0;
+        //     that.data.timer = setTimeout(countDownStart, interval);
+        //     function countDownStart() {
+        //         var offset, nextTime; // offset是倒计时误差时间，nextTime是减去误差时间后下一次执行的时间
+        //         count++;
+        //         offset = new Date().getTime() - (start + count * interval);
+        //         nextTime = interval - offset;
+        //         if (nextTime < 0) { nextTime = 0; }
+        //         countDownNum -= interval;
+        //         var string = that.getCountdownString(countDownNum);
+        //         console.log("误差: " + offset + "ms, 下一次执行: " + nextTime + "ms后，离活动开始还有: " + countDownNum + "ms");
+        //         if (countDownNum <= 0) {
+        //             clearTimeout(that.data.timer);
+        //         } else {
+        //             that.setData({
+        //                 countdownTime: string
+        //             })
+        //             that.data.timer = setTimeout(countDownStart, nextTime);
+        //         }
+        //     }
+        // }
+        // getCountdownString: function (time) {
+        //     var m = Math.floor(time / 1000 / 60 % 60);
+        //     var s = Math.floor(time / 1000 % 60);
+        //     if (m <= 0 && s <= 10) {
+        //         return s;
+        //     }
+        //     s = s < 10 ? "0" + s : s;
+        //     m = m < 10 ? "0" + m : m;
+        //     var string = `${m}:${s}`;
+        //     return string;
+        // },
+
+        // getCountdownTime: function () {
+        //     var that = this;
+        //     var time = that.data.countdownEndTime - that.data.dataTimestamp;
+        //     return time;
+        // }
+
+    </script>
+</body>
+</html>

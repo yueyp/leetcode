@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Event {
+            constructor() {
+                // super()
+                this.eventArr = {}
+            }
+
+            on(type, fn) {
+                if (this.eventArr[type]) {
+                    this.eventArr[type].push(fn)
+                }
+                else {
+                    this.eventArr[type] = [fn];
+                }
+            }
+            emit(type, data) {
+                if (this.eventArr[type]) {
+                    for (let i = 0; i < this.eventArr[type].length; i++) {
+                        this.eventArr[type][i](data)
+                    }
+
+                }
+            }
+            off(type, fn) {
+                this.eventArr[type] = this.eventArr[type].filter((item) => {
+                    return item != fn
+                })
+            }
+
+            once(type, fn) {
+                function fn() {
+                    callBack()
+                    this.off(type, callBack)
+                }
+                this.on(type, fn)
+            }
+        }
+
+        const myEvent = new Event()
+        const fn1 = function (data) {
+            console.log(data)
+        }
+        const fn2 = function (data) {
+            console.log(data, "dsdsds")
+        }
+
+        myEvent.once('click', fn1)
+        //    myEvent.emit('click','clickFn')
+        //    myEvent.on('click',fn2)
+        //    myEvent.off('click',fn1)
+        myEvent.emit('click', 'clickFn')
+        myEvent.emit('click', 'clickFn')
+
+
+    </script>
+</body>
+
+</html>

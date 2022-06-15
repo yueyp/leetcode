@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father {
+            outline: 1px solid red;
+        }
+
+        .son1 {
+            height: 20px;
+            margin-bottom: 20px;
+            background: lightgreen;
+        }
+
+        .son2 {
+            height: 30px;
+            margin-top: 30px;
+            background: lightblue;
+        }
+        /* 解决外边距垂直方向重合 */
+        .son2-wrap {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son1"></div>
+        <div class="son2-wrap">
+            <div class="son2"></div>
+        </div>
+    </div>
+</body>
+</html>

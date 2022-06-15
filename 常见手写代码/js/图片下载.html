@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <p id='btn'>下载</p>
+    <p id='btn2'>下载222</p>
+
+  <script>
+    var btn = document.getElementById("btn");
+    var btn2 = document.getElementById("btn2");
+
+    btn.onclick = function(){
+      var x=new XMLHttpRequest();
+      x.open("GET", "https://jy-common-dev-hongkong-1257884527.cos.ap-hongkong.myqcloud.com/admin/activity-material/2020-07-30/62db26e7-521a-4acf-ad3a-207b97918c2c/Group@2x.png", true);
+      x.responseType = 'blob';
+      
+      x.onload=function(e){
+        var url = window.URL.createObjectURL(x.response)
+        var a = document.createElement('a');
+        a.href = url
+        a.download = ''
+        a.click()
+      }
+      x.send()
+    }
+    
+  </script>
+</body>
+</html>

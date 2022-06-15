@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 参考地址 https://juejin.cn/post/6844904094948130824
+        /*
+            es5：
+            私有属性和方法：只能在构造函数内访问不能被外部所访问(在构造函数内使用var声明的属性)
+            公有属性和方法(或实例方法)：对象外可以访问到对象内的属性和方法(在构造函数内使用this设置，或者设置在构造函数原型对象上比如Cat.prototype.xxx)
+            静态属性和方法：定义在构造函数上的方法(比如Cat.xxx)，不需要实例就可以调用(例如Object.assign())
+        */   
+
+        function Cat(name,color){
+            // 私有属性
+            var heart = '心'
+            var stomach = '胃'
+            // 私有方法
+            var heartbeat = function(){
+                console.log(heart + '跳')
+            }
+            // 公有属性
+            this.name = name
+            this.color = color
+            // 公有方法
+            this.jump = function(){
+                heartbeat()
+            }
+        }
+
+        // 静态属性
+        Cat.descript = '喵喵'
+        // 静态方法
+        Cat.actingCute = function(){
+            console.log('卖萌')
+        }
+        /*  
+            公有方法，定义在构造函数原型对象上的属性和方法虽然不能直接表现在
+            实例对象上，但是实例对象却可以访问和调用™
+        */
+        Cat.prototype.cleanBody = function(){
+            console.log('清洗身体')
+        }
+
+        var guai = new Cat('guai','white')
+        console.log(guai) // Cat{ name: 'guaiguai', color: 'white', jump: function(){} }
+        console.log(guai.heart) // undefined
+        console.log(guai.heartbeat()) // 报错
+        console.log(Cat.descript) // 喵喵
+        console.log(guai.descript) // undefined
+        Cat.actingCute() // 卖萌
+        guai.cleanBody() // 清洗身体
+
+
+        /*
+        ES6 : 类的所有方法都定义在类的prototype属性上面
+        class Cat {    
+            constructor() {}
+            toString () {}    
+            toValue () {}
+        }
+        // 等同于
+        function Cat () {}
+        Cat.prototype = {    
+            constructor() {}    
+            toString () {}    
+            toValue () {}
+        }
+        类却不存在这种提升机制，必须先定义再使用
+        */ 
+       class Cat {
+            constructor(name,color){
+                // 只存在constructor这个构造函数中
+                var heart = '心'
+                var stomach = '胃'
+                var heartbeat = function(){
+                    console.log(heart + '跳')
+                }
+                // 会被定义到实例上
+                this.name = name
+                this.color = color
+                this.jump = function(){
+                    heartbeat()
+                }
+           }
+            // 定义到实例上
+            color = 'white'
+            cleanBody = function(){
+               console.log('清洗身体')
+            }
+            // 会被添加到原型对象prototype上
+            hide(){
+                console.log('藏起来');
+            }
+
+            // 静态属性
+            static descript = '喵喵'
+       }
+
+       var guai = new Cat('guai','white')
+       console.log(guai) //Cat{ name: 'guaiguai', color: 'white', jump: function () {} }
+         
+    </script>
+</body>
+</html>

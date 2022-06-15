@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr = [1,2,3]
+        arr.reduce((p,x)=>{
+            return p.then(()=>{
+                return new Promise(r => {
+                    setTimeout(() => r(console.log(x)),1000)
+                })
+            })
+        },Promise.resolve())
+    </script>
+</body>
+</html>

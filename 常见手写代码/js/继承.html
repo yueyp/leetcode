@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Father(name) {
+            this.name = name || "father"
+            this.sayName = function () {
+                console.log(this.name)
+            }
+            this.color = ["red", "blue"]
+        }
+        Father.prototype.age = 18
+        Father.prototype.sayAge = function () {
+            console.log(this.age)
+        }
+        /*
+            // 原型链继承 将父类的实例作为子类的原型
+            function Son(name) {
+                // this.name = name || "son"
+            }
+            // 无法实现多继承，因为原型一次只能被一个实例修改
+            Son.prototype = new Father()
+            // 创建字类实例时，无法向父构造函数传参
+            let s1 = new Son("s1")
+            let s2 = new Son("s2")
+            s1.color.push("black")
+            console.log(s1.name)
+            console.log(s1.color)
+            // 父类新增原型方法、原型属性，子类都能访问到
+            console.log(s1.age)
+            s1.sayAge()
+            console.log(s2.name)
+            // 来自原型对象的所有属性被所有实例共享
+            console.log(s2.color)
+            console.log(s1)
+        */
+        
+        /*
+            // 构造函数继承 复制父类的实例属性给字类
+            function Son(name){
+                // 创建实例时，可以向父类传递参数
+                // 可以多继承（call多个父类函数）
+                // 无法实现函数复用，每个子类都有父类实例上的方法的副本，影响性能
+                Father.call(this,"我是传递给父类的参数")
+                this.name = name || "son"
+            }
+            let s = new Son("son")
+            let s1 = new Son("son")
+            s.color.push("black")
+            console.log(s.name)
+            // 只能继承父类实例的属性和方法，不能继承其原型上的属性和方法
+            // s.sayAge() 报错
+            console.log(s.age)
+            // 实例并不是父类的实例，只是字类的实例
+            console.log(s instanceof Father)
+            console.log(s instanceof Son)
+            // 解决了原型链继承中字类实例共享父类引用属性的问题,因为每创建一个新的实例时，都执行了一次父类的函数
+            console.log(s1.color)
+            console.log(s)
+        */
+
+        /*
+            // 组合继承 原型链和借用构造函数的技术组合到一块。使用原型链实现对原型属性和方法的继承，而通过构造函数来实现对实例属性的继承
+            function Son(name){
+                // 通过Father.call继承实例的属性和方法
+                // 可以向父类传递参数
+                Father.call(this,"我是传给父类的参数")
+                this.name = name || "son"
+            }
+            // 通过给Son.prototype赋值，继承原型的属性和方法
+            // 调用两次父类的构造函数，生成了两份实例
+            Son.prototype = new Father()
+
+            let s = new Son("son")
+            let s1 = new Son()
+            // 原型上的函数可以复用，实例的函数不能复用
+            console.log(s1.sayAge === s.sayAge,s1.sayName === s.sayName)
+            console.log(s.name)
+            s.sayAge()
+            s.sayName()
+            console.log(s.age)
+            // 既是子类的实例又是父类的实例
+            console.log(s instanceof Father)
+            console.log(s instanceof Son)
+            // constructor存在指向问题
+            console.log(s.constructor === Father)
+            console.log(s.constructor === Son)
+            console.log(s)
+        */
+    /*
+        // 实例继承 为父类实例添加新特征，作为子类实例返回
+        function Son(name){
+            // 不支持多继承
+            let f = new Father("传给父类的参数")
+            f.name = name || "son"
+            return f
+        }
+        // 不限制调用方式，不管是new 子类()还是子类(),返回的对象具有相同的效果
+        let s = new Son("son") //或者直接调用子类构造函数 let s = Son("son")
+        console.log(s.name)
+        s.sayAge()
+        s.sayName()
+        console.log(s.age)
+        console.log(s instanceof Father)
+        console.log(s instanceof Son)
+        // 实例是父类的实例，不是子类的实例
+        console.log(s.constructor === Father)
+        console.log(s.constructor === Son)
+        console.log(s)
+    */
+
+    /*
+        // 拷贝继承 对父类实例中的方法与属性拷贝给子类的原型
+        function Son(name){
+            let f = new Father("传给父类的参数")
+            // 支持多继承
+            // 效率低，性能差，占用内存高，因为需要拷贝父类属性，不可获得父类不可枚举的方法
+            for(let k in f){
+                Son.prototype[k] = f[k]
+            }
+            Son.prototype.name = name
+        }
+        let s = new Son("son")
+        console.log(s.name)
+        s.sayAge()
+        s.sayName()
+        console.log(s.age)
+        console.log(s instanceof Father)
+        console.log(s instanceof Son)
+        console.log(s.constructor === Father)
+        console.log(s.constructor === Son)
+        console.log(s)
+    */
+    
+    /*
+        // 寄生组合继承 通过寄生方式，砍掉父类的实例属性，避免了组合继承生成两份实例的缺点
+        // 最完美的方式
+        function Son(name){
+            Father.call(this)
+            this.name = name || "son"
+        }
+        Son.prototype = Object.create(Father.prototype)
+        Son.prototype.constructor = Son
+        let s = new Son("son");
+        console.log(s.name); // son
+        s.sayAge(); // 18
+        s.sayName(); // son
+        console.log(s.age); // 18
+        console.log(s instanceof Father); // true
+        console.log(s instanceof Son); // true
+        console.log(s.constructor === Father); // false
+        console.log(s.constructor === Son); // true
+    */
+
+    // es6-class继承 使用extends表明继承自哪个父类，并且在子类构造函数中必须调用super
+    class Son extends Father {
+        constructor(name){
+            super(name)
+            this.name = name || "son"
+        }
+    }
+    let s = new Son("son");
+    console.log(s.name); // son
+    s.sayAge(); // 18
+    s.sayName(); // son
+    console.log(s.age); // 18
+    console.log(s instanceof Father); // true
+    console.log(s instanceof Son); // true
+    console.log(s.constructor === Father); // false
+    console.log(s.constructor === Son); // true
+    </script>
+</body>
+</html>
